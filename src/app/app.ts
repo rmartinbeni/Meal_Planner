@@ -4,7 +4,6 @@ import { SupabaseService } from './services/supabase.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrls: ['./app.scss']

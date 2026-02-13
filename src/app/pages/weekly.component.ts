@@ -7,7 +7,6 @@ type Recipe = { id: number; name: string };
 
 @Component({
   selector: 'app-weekly',
-  standalone: true,
   imports: [CommonModule],
   template: `
     <nav style="display:flex;gap:8px;margin-bottom:12px">
@@ -30,19 +29,19 @@ type Recipe = { id: number; name: string };
         <tr *ngFor="let day of days">
           <td>{{ day }}</td>
           <td>
-            <select [value]="assignments()[day].breakfast ?? ''" (change)="setAssignment(day, 'breakfast', $any($event.target).value)">
+            <select [value]="assignments()[day].breakfast ?? ''" (change)="onAssignmentChange($event, day, 'breakfast')">
               <option value="">—</option>
               <option *ngFor="let r of recipes()" [value]="r.id">{{ r.name }}</option>
             </select>
           </td>
           <td>
-            <select [value]="assignments()[day].lunch ?? ''" (change)="setAssignment(day, 'lunch', $any($event.target).value)">
+            <select [value]="assignments()[day].lunch ?? ''" (change)="onAssignmentChange($event, day, 'lunch')">
               <option value="">—</option>
               <option *ngFor="let r of recipes()" [value]="r.id">{{ r.name }}</option>
             </select>
           </td>
           <td>
-            <select [value]="assignments()[day].dinner ?? ''" (change)="setAssignment(day, 'dinner', $any($event.target).value)">
+            <select [value]="assignments()[day].dinner ?? ''" (change)="onAssignmentChange($event, day, 'dinner')">
               <option value="">—</option>
               <option *ngFor="let r of recipes()" [value]="r.id">{{ r.name }}</option>
             </select>
@@ -57,7 +56,7 @@ type Recipe = { id: number; name: string };
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WeeklyComponent implements OnInit {
-  private readonly supabase = inject(SupabaseService).client;
+  private readonly supabase = inject(SupabaseService);
   private readonly router = inject(Router);
 
   readonly days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
@@ -69,7 +68,7 @@ export class WeeklyComponent implements OnInit {
   );
 
   async ngOnInit() {
-    const { data, error } = await this.supabase.from('recipes').select('id, name');
+    const { data, error } = await this.supabase.getRecipes();
     if (error) {
       console.error('Error loading recipes', error);
       return;
@@ -79,6 +78,11 @@ export class WeeklyComponent implements OnInit {
 
   setAssignment(day: string, slot: 'breakfast' | 'lunch' | 'dinner', value: string) {
     const id = value === '' ? null : Number(value);
-    this.assignments.update(prev => ({ ...prev, [day]: { ...prev[day], [slot]: id } }));
+    this.assignments.update((prev: Record<string, { breakfast: number | null; lunch: number | null; dinner: number | null }>) => ({ ...prev, [day]: { ...prev[day], [slot]: id } }));
+  }
+
+  onAssignmentChange(e: Event, day: string, slot: 'breakfast' | 'lunch' | 'dinner') {
+    const value = (e.target as HTMLSelectElement).value;
+    this.setAssignment(day, slot, value);
   }
 }

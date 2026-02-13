@@ -1,27 +1,27 @@
-import { Injectable, inject } from '@angular/core';
-import {
-  AuthChangeEvent,
-  createClient,
-  Session,
-  SupabaseClient,
-  User,
-} from '@supabase/supabase-js';
+import { Injectable } from '@angular/core';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class SupabaseService {
-  private readonly supabase: SupabaseClient;
+  private readonly supabase: SupabaseClient = createClient(
+    environment.supabase.url,
+    environment.supabase.key
+  );
 
-  constructor() {
-    this.supabase = createClient(
-      environment.supabase.url,
-      environment.supabase.key
-    );
+  async getIngredients() {
+    return this.supabase.from('ingredients').select('id, name');
   }
 
-  get client() {
-    return this.supabase;
+  async getRecipes() {
+    return this.supabase.from('recipes').select('id, name');
+  }
+
+  async insertIngredient(name: string) {
+    return this.supabase.from('ingredients').insert([{ name }]);
+  }
+
+  async insertRecipe(payload: { name: string; ingredient_ids: number[] }) {
+    return this.supabase.from('recipes').insert([payload]);
   }
 }
