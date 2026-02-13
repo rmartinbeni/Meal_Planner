@@ -1,6 +1,5 @@
 import { Component, signal, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { SupabaseService } from '../services/supabase.service';
 
 type Recipe = { id: number; name: string };
@@ -57,7 +56,6 @@ type Recipe = { id: number; name: string };
 })
 export class WeeklyComponent implements OnInit {
   private readonly supabase = inject(SupabaseService);
-  private readonly router = inject(Router);
 
   readonly days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 

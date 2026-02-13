@@ -1,6 +1,5 @@
-import { Component, signal, inject, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SupabaseService } from './services/supabase.service';
 
 @Component({
   selector: 'app-root',
