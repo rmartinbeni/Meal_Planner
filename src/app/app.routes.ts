@@ -1,10 +1,7 @@
 import { Routes } from '@angular/router';
-import { WeeklyComponent } from './pages/weekly.component';
-import { RecipesComponent } from './pages/recipes.component';
-import { IngredientsComponent } from './pages/ingredients.component';
 
 export const routes: Routes = [
-	{ path: '', component: WeeklyComponent },
-	{ path: 'recipes', component: RecipesComponent },
-	{ path: 'ingredients', component: IngredientsComponent },
+  { path: '', loadComponent: () => import('./pages/weekly.component').then(m => m.WeeklyComponent) },
+  { path: 'recipes', loadComponent: () => import('./pages/recipes.component').then(m => m.RecipesComponent) },
+  { path: 'ingredients', loadComponent: () => import('./pages/ingredients.component').then(m => m.IngredientsComponent) },
 ];

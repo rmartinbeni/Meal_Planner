@@ -1,21 +1,12 @@
-<style>
-  :root { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; }
-  header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-bottom:1px solid #e6e6e6 }
-  nav a { margin-right:12px; color: #0b5cff; text-decoration:none }
-  main { padding:16px }
-</style>
+<p-menubar class="app-menubar p-shadow-2" [model]="menuItems">
+  <ng-template pTemplate="start">
+    <div class="app-logo p-d-flex p-ai-center">
+      <i class="pi pi-utensils p-mr-2" aria-hidden="true"></i>
+      <span class="app-title">Menu Semanal</span>
+    </div>
+  </ng-template>
+</p-menubar>
 
-<header>
-  <div>
-    <strong>Menu Semanal</strong>
-  </div>
-  <nav aria-label="Principal">
-    <a routerLink="/" aria-current="page">Semana</a>
-    <a routerLink="/recipes">Recetas</a>
-    <a routerLink="/ingredients">Ingredientes</a>
-  </nav>
-</header>
-
-<main>
+<main class="app-main">
   <router-outlet></router-outlet>
 </main>

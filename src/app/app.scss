@@ -1,0 +1,17 @@
+.app-menubar {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+}
+.app-logo .app-title {
+	font-weight: 700;
+	font-size: 1.05rem;
+}
+.app-main {
+	padding: 1.25rem;
+}
+
+.p-menubar .p-menuitem-link {
+	color: var(--surface-900, #111827);
+}
+
