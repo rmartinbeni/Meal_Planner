@@ -9,6 +9,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RecipesService } from '@app/recipes/service/recipes.service';
+import { IngredientsService } from '@app/ingredients/service/ingredients.service';
 
 type Ingredient = { id: number; name: string };
 
@@ -20,7 +21,8 @@ type Ingredient = { id: number; name: string };
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipesComponent implements OnInit {
-  private readonly supabase = inject(RecipesService);
+  private readonly recipeService = inject(RecipesService);
+  private readonly ingredientService = inject(IngredientsService);
 
   readonly ingredients = signal<Ingredient[]>([]);
   readonly recipes = signal<{ id: number; name: string }[]>([]);
@@ -42,13 +44,13 @@ export class RecipesComponent implements OnInit {
   }
 
   async loadIngredients() {
-    const { data, error } = await this.supabase.getIngredients();
+    const { data, error } = await this.ingredientService.getAll();
     if (error) return console.error(error);
     this.ingredients.set((data as any) || []);
   }
 
   async loadRecipes() {
-    const { data, error } = await this.supabase.getRecipes();
+    const { data, error } = await this.recipeService.getAll();
     if (error) return console.error(error);
     this.recipes.set((data as any) || []);
   }
@@ -66,7 +68,7 @@ export class RecipesComponent implements OnInit {
       name: (this.form.get('name')?.value ?? '').toString(),
       ingredient_ids: this.selectedIngredients(),
     };
-    const { error } = await this.supabase.insertRecipe(toInsert);
+    const { error } = await this.recipeService.create(toInsert);
     if (error) return console.error('Error creating recipe', error);
     this.form.get('name')?.setValue('');
     this.selectedIngredients.set([]);

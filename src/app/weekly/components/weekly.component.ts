@@ -6,7 +6,7 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SupabaseService } from '@app/core/supabase/supabase.client';
+import { WeeklyService } from '@app/weekly/service/weekly.service';
 
 type Recipe = { id: number; name: string };
 
@@ -18,7 +18,7 @@ type Recipe = { id: number; name: string };
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WeeklyComponent implements OnInit {
-  private readonly supabase = inject(SupabaseService);
+  private readonly weeklyService = inject(WeeklyService);
 
   readonly days = [
     'Lunes',
@@ -42,7 +42,7 @@ export class WeeklyComponent implements OnInit {
   );
 
   async ngOnInit() {
-    const { data, error } = await this.supabase.getRecipes();
+    const { data, error } = await this.weeklyService.getAll();
     if (error) {
       console.error('Error loading recipes', error);
       return;
