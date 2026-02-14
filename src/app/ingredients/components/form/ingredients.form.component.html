@@ -1,6 +1,10 @@
 <section class="add-ingredient-form">
   <label for="ingredient-name">Nuevo ingrediente:</label>
-  <input id="ingredient-name" [formControl]="form.controls.name" aria-describedby="ingredients-live" />
+  <input
+    id="ingredient-name"
+    [formControl]="form.controls.name"
+    aria-describedby="ingredients-live"
+  />
   <button (click)="add()">Añadir</button>
 </section>
 <div id="ingredients-live" aria-live="polite" class="visually-hidden">{{ liveMessage() }}</div>

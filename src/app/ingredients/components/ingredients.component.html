@@ -1,7 +1,7 @@
 <h2>Ingredientes</h2>
 
-<app-ingredients-form (ingredientAdded)="load()" />
-@if(errorMessage()) {
+<meal-planner-ingredients-form (ingredientAdded)="load()" />
+@if (errorMessage()) {
   <p class="error-message">{{ errorMessage() }}</p>
 }
 

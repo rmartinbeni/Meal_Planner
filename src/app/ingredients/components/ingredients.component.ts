@@ -1,17 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IngredientsService } from '@app/ingredients/service/ingredients.service';
 import { IngredientsFormComponent } from './form/ingredients.form.component';
 
 @Component({
-  selector: 'app-ingredients',
-  standalone: true,
+  selector: 'meal-planner-ingredients',
   imports: [CommonModule, IngredientsFormComponent],
   templateUrl: './ingredients.component.html',
   styleUrls: ['./ingredients.component.scss'],
@@ -24,7 +17,7 @@ export class IngredientsComponent implements OnInit {
   readonly errorMessage = signal('');
 
   ngOnInit() {
-    this.load();
+    void this.load();
   }
 
   async load() {

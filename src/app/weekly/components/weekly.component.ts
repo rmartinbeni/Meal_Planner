@@ -1,19 +1,15 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeeklyService } from '@app/weekly/service/weekly.service';
 import { WeeklyFormComponent } from './form/weekly.form.component';
 
-type Recipe = { id: number; name: string };
+interface Recipe {
+  id: number;
+  name: string;
+}
 
 @Component({
-  selector: 'app-weekly',
-  standalone: true,
+  selector: 'meal-planner-weekly',
   imports: [CommonModule, WeeklyFormComponent],
   templateUrl: './weekly.component.html',
   styleUrls: ['./weekly.component.scss'],
@@ -24,12 +20,16 @@ export class WeeklyComponent implements OnInit {
 
   readonly recipes = signal<Recipe[]>([]);
 
-  async ngOnInit() {
+  ngOnInit() {
+    void this.loadRecipes();
+  }
+
+  private async loadRecipes() {
     const { data, error } = await this.weeklyService.getAll();
     if (error) {
       console.error('Error loading recipes', error);
       return;
     }
-    this.recipes.set((data as any) || []);
+    this.recipes.set((data as Recipe[]) ?? []);
   }
 }

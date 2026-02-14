@@ -1,19 +1,13 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WeeklyService } from '@app/weekly/service/weekly.service';
 
-type Recipe = { id: number; name: string };
+interface Recipe {
+  id: number;
+  name: string;
+}
 
 @Component({
-  selector: 'app-weekly-form',
-  standalone: true,
+  selector: 'meal-planner-weekly-form',
   imports: [CommonModule],
   templateUrl: './weekly.form.component.html',
   styleUrls: ['./weekly.form.component.scss'],
@@ -22,31 +16,12 @@ type Recipe = { id: number; name: string };
 export class WeeklyFormComponent {
   readonly recipes = input.required<Recipe[]>();
 
-  readonly days = [
-    'Lunes',
-    'Martes',
-    'Miércoles',
-    'Jueves',
-    'Viernes',
-    'Sábado',
-    'Domingo',
-  ];
+  readonly days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   readonly assignments = signal<
-    Record<
-      string,
-      { breakfast: number | null; lunch: number | null; dinner: number | null }
-    >
-  >(
-    Object.fromEntries(
-      this.days.map((d) => [d, { breakfast: null, lunch: null, dinner: null }]),
-    ),
-  );
+    Record<string, { breakfast: number | null; lunch: number | null; dinner: number | null }>
+  >(Object.fromEntries(this.days.map((d) => [d, { breakfast: null, lunch: null, dinner: null }])));
 
-  setAssignment(
-    day: string,
-    slot: 'breakfast' | 'lunch' | 'dinner',
-    value: string,
-  ) {
+  setAssignment(day: string, slot: 'breakfast' | 'lunch' | 'dinner', value: string) {
     const id = value === '' ? null : Number(value);
     this.assignments.update((prev) => ({
       ...prev,
@@ -54,11 +29,7 @@ export class WeeklyFormComponent {
     }));
   }
 
-  onAssignmentChange(
-    e: Event,
-    day: string,
-    slot: 'breakfast' | 'lunch' | 'dinner',
-  ) {
+  onAssignmentChange(e: Event, day: string, slot: 'breakfast' | 'lunch' | 'dinner') {
     const value = (e.target as HTMLSelectElement).value;
     this.setAssignment(day, slot, value);
   }

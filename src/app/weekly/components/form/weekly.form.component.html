@@ -12,7 +12,10 @@
       <tr>
         <td>{{ day }}</td>
         <td>
-          <select [value]="assignments()[day].breakfast ?? ''" (change)="onAssignmentChange($event, day, 'breakfast')">
+          <select
+            [value]="assignments()[day].breakfast ?? ''"
+            (change)="onAssignmentChange($event, day, 'breakfast')"
+          >
             <option value="">—</option>
             @for (r of recipes(); track r.id) {
               <option [value]="r.id">{{ r.name }}</option>
@@ -20,7 +23,10 @@
           </select>
         </td>
         <td>
-          <select [value]="assignments()[day].lunch ?? ''" (change)="onAssignmentChange($event, day, 'lunch')">
+          <select
+            [value]="assignments()[day].lunch ?? ''"
+            (change)="onAssignmentChange($event, day, 'lunch')"
+          >
             <option value="">—</option>
             @for (r of recipes(); track r.id) {
               <option [value]="r.id">{{ r.name }}</option>
@@ -28,7 +34,10 @@
           </select>
         </td>
         <td>
-          <select [value]="assignments()[day].dinner ?? ''" (change)="onAssignmentChange($event, day, 'dinner')">
+          <select
+            [value]="assignments()[day].dinner ?? ''"
+            (change)="onAssignmentChange($event, day, 'dinner')"
+          >
             <option value="">—</option>
             @for (r of recipes(); track r.id) {
               <option [value]="r.id">{{ r.name }}</option>

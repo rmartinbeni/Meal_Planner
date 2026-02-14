@@ -4,8 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IngredientsService } from '@app/ingredients/service/ingredients.service';
 
 @Component({
-  selector: 'app-ingredients-form',
-  standalone: true,
+  selector: 'meal-planner-ingredients-form',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './ingredients.form.component.html',
   styleUrls: ['./ingredients.form.component.scss'],

@@ -3,20 +3,21 @@ import {
   Component,
   computed,
   inject,
-  OnInit,
   signal,
   output,
-  input
+  input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RecipesService } from '@app/recipes/service/recipes.service';
 
-type Ingredient = { id: number; name: string };
+interface Ingredient {
+  id: number;
+  name: string;
+}
 
 @Component({
-  selector: 'app-recipes-form',
-  standalone: true,
+  selector: 'meal-planner-recipes-form',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './recipes.form.component.html',
   styleUrls: ['./recipes.form.component.scss'],
@@ -35,9 +36,7 @@ export class RecipesFormComponent {
   readonly selectedIngredientNames = computed(() => {
     const ids = this.selectedIngredients();
     const allIngs = this.ingredients();
-    return ids
-      .map((id) => allIngs.find((i) => i.id === id)?.name)
-      .filter(Boolean) as string[];
+    return ids.map((id) => allIngs.find((i) => i.id === id)?.name).filter(Boolean) as string[];
   });
 
   toggleIngredient(idStr: string) {

@@ -7,24 +7,12 @@
     "types": [],
     "baseUrl": "./src",
     "paths": {
-      "@app/*": [
-        "app/*"
-      ],
-      "@env/*": [
-        "environments/*"
-      ],
-      "@shared/*": [
-        "app/shared/*"
-      ],
-      "@core/*": [
-        "app/core/*"
-      ]
+      "@app/*": ["app/*"],
+      "@env/*": ["environments/*"],
+      "@shared/*": ["app/shared/*"],
+      "@core/*": ["app/core/*"]
     }
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/**/*.spec.ts"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"]
 }
