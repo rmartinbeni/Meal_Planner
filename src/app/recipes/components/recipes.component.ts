@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SupabaseService } from '../../services/supabase.service';
+import { SupabaseService } from '@shared/services/supabase.service';
 
 type Ingredient = { id: number; name: string };
 

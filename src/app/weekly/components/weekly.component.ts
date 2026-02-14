@@ -6,7 +6,7 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SupabaseService } from '../../services/supabase.service';
+import { SupabaseService } from '@shared/services/supabase.service';
 
 type Recipe = { id: number; name: string };
 
