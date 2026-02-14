@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SupabaseService } from '@shared/services/supabase.service';
+import { IngredientsService } from '@app/ingredients/service/ingredients.service';
 
 @Component({
   selector: 'app-ingredients',
@@ -17,7 +17,7 @@ import { SupabaseService } from '@shared/services/supabase.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IngredientsComponent implements OnInit {
-  private readonly supabase = inject(SupabaseService);
+  private readonly ingredientsService = inject(IngredientsService);
 
   readonly ingredients = signal<{ id: number; name: string }[]>([]);
   readonly form = new FormGroup({ name: new FormControl('') });
@@ -28,7 +28,7 @@ export class IngredientsComponent implements OnInit {
   }
 
   async load() {
-    const { data, error } = await this.supabase.getIngredients();
+    const { data, error } = await this.ingredientsService.getAll();
     if (error) return console.error(error);
     this.ingredients.set((data as any) || []);
   }
@@ -36,7 +36,7 @@ export class IngredientsComponent implements OnInit {
   async add() {
     const value = (this.form.get('name')?.value ?? '').toString().trim();
     if (!value) return;
-    const { error } = await this.supabase.insertIngredient(value);
+    const { error } = await this.ingredientsService.create(value);
     if (error) return console.error(error);
     this.form.get('name')?.setValue('');
     await this.load();

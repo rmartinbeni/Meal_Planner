@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SupabaseService } from '@shared/services/supabase.service';
+import { RecipesService } from '@app/recipes/service/recipes.service';
 
 type Ingredient = { id: number; name: string };
 
@@ -20,7 +20,7 @@ type Ingredient = { id: number; name: string };
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipesComponent implements OnInit {
-  private readonly supabase = inject(SupabaseService);
+  private readonly supabase = inject(RecipesService);
 
   readonly ingredients = signal<Ingredient[]>([]);
   readonly recipes = signal<{ id: number; name: string }[]>([]);
