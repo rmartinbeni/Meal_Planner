@@ -1,0 +1,21 @@
+<section class="create-recipe-form">
+  <h3>Crear receta</h3>
+  <label for="recipe-name">Nombre:</label>
+  <input id="recipe-name" [formControl]="form.controls.name" aria-describedby="recipes-live" />
+  <br />
+  <label for="ingredient-select">Ingredientes:</label>
+  <select id="ingredient-select" (change)="onToggleIngredient($event)" aria-label="Agregar ingrediente">
+    <option value="">— selecciona —</option>
+    @for (ing of ingredients(); track ing.id) {
+      <option [value]="ing.id">{{ ing.name }}</option>
+    }
+  </select>
+  <div>
+    Ingredientes seleccionados: 
+    @for (name of selectedIngredientNames(); track name) {
+      <span>{{ name }} </span>
+    }
+  </div>
+  <div id="recipes-live" aria-live="polite" class="visually-hidden">{{ liveMessage() }}</div>
+  <button (click)="createRecipe()">Crear</button>
+</section>
