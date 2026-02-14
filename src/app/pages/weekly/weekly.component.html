@@ -1,0 +1,45 @@
+<h2>Vista Semanal</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Día</th>
+      <th>Desayuno</th>
+      <th>Comida</th>
+      <th>Cena</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (day of days; track day) {
+      <tr>
+        <td>{{ day }}</td>
+        <td>
+          <select [value]="assignments()[day].breakfast ?? ''" (change)="onAssignmentChange($event, day, 'breakfast')">
+            <option value="">—</option>
+            @for (r of recipes(); track r.id) {
+              <option [value]="r.id">{{ r.name }}</option>
+            }
+          </select>
+        </td>
+        <td>
+          <select [value]="assignments()[day].lunch ?? ''" (change)="onAssignmentChange($event, day, 'lunch')">
+            <option value="">—</option>
+            @for (r of recipes(); track r.id) {
+              <option [value]="r.id">{{ r.name }}</option>
+            }
+          </select>
+        </td>
+        <td>
+          <select [value]="assignments()[day].dinner ?? ''" (change)="onAssignmentChange($event, day, 'dinner')">
+            <option value="">—</option>
+            @for (r of recipes(); track r.id) {
+              <option [value]="r.id">{{ r.name }}</option>
+            }
+          </select>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<p class="assignments-title">Asignaciones (estado local):</p>
+<pre>{{ assignments() | json }}</pre>

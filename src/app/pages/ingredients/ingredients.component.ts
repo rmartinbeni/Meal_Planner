@@ -1,34 +1,19 @@
-import { Component, signal, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
-import { SupabaseService } from '../services/supabase.service';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
   selector: 'app-ingredients',
   imports: [CommonModule, ReactiveFormsModule],
-  template: `
-    <nav style="display:flex;gap:8px;margin-bottom:12px">
-      <a routerLink="/">Semana</a>
-      <a routerLink="/recipes">Recetas</a>
-      <a routerLink="/ingredients">Ingredientes</a>
-    </nav>
-
-    <h2>Ingredientes</h2>
-
-    <section style="margin-bottom:16px">
-      <label for="ingredient-name">Nuevo ingrediente:</label>
-      <input id="ingredient-name" [formControl]="form.controls.name" aria-describedby="ingredients-live" />
-      <button (click)="add()">Añadir</button>
-    </section>
-    <div id="ingredients-live" aria-live="polite" class="visually-hidden">{{ liveMessage() }}</div>
-
-    <section>
-      <h3>Todos los ingredientes</h3>
-      <ul>
-        <li *ngFor="let ing of ingredients()">{{ ing.name }} (id: {{ ing.id }})</li>
-      </ul>
-    </section>
-  `,
+  templateUrl: './ingredients.component.html',
+  styleUrls: ['./ingredients.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IngredientsComponent implements OnInit {

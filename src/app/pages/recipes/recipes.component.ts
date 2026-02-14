@@ -1,46 +1,22 @@
-import { Component, signal, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
-import { SupabaseService } from '../services/supabase.service';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SupabaseService } from '../../services/supabase.service';
 
 type Ingredient = { id: number; name: string };
 
 @Component({
   selector: 'app-recipes',
   imports: [CommonModule, ReactiveFormsModule],
-  template: `
-    <nav style="display:flex;gap:8px;margin-bottom:12px">
-      <a routerLink="/">Semana</a>
-      <a routerLink="/recipes">Recetas</a>
-      <a routerLink="/ingredients">Ingredientes</a>
-    </nav>
-
-    <h2>Recetas</h2>
-
-    <section style="margin-bottom:16px">
-      <h3>Crear receta</h3>
-      <label for="recipe-name">Nombre:</label>
-      <input id="recipe-name" [formControl]="form.controls.name" aria-describedby="recipes-live" />
-      <br />
-      <label for="ingredient-select">Ingredientes:</label>
-      <select id="ingredient-select" (change)="onToggleIngredient($event)" aria-label="Agregar ingrediente">
-        <option value="">— selecciona —</option>
-        <option *ngFor="let ing of ingredients()" [value]="ing.id">{{ ing.name }}</option>
-      </select>
-      <div>
-        Ingredientes seleccionados: <span *ngFor="let i of selectedIngredientsArray()">{{ i }} </span>
-      </div>
-      <div id="recipes-live" aria-live="polite" class="visually-hidden">{{ liveMessage() }}</div>
-      <button (click)="createRecipe()">Crear</button>
-    </section>
-
-    <section>
-      <h3>Lista de recetas</h3>
-      <ul>
-        <li *ngFor="let r of recipes()">{{ r.name }} (id: {{ r.id }})</li>
-      </ul>
-    </section>
-  `,
+  templateUrl: './recipes.component.html',
+  styleUrls: ['./recipes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipesComponent implements OnInit {
@@ -52,9 +28,13 @@ export class RecipesComponent implements OnInit {
   readonly selectedIngredients = signal<number[]>([]);
   readonly liveMessage = signal('');
 
-  get selectedIngredientsArray() {
-    return () => this.selectedIngredients();
-  }
+  readonly selectedIngredientNames = computed(() => {
+    const ids = this.selectedIngredients();
+    const allIngs = this.ingredients();
+    return ids
+      .map((id) => allIngs.find((i) => i.id === id)?.name)
+      .filter(Boolean) as string[];
+  });
 
   async ngOnInit() {
     await this.loadIngredients();
@@ -76,7 +56,9 @@ export class RecipesComponent implements OnInit {
   toggleIngredient(idStr: string) {
     const id = Number(idStr);
     if (!id) return;
-    this.selectedIngredients.update((prev: number[]) => (prev.includes(id) ? prev.filter((i: number) => i !== id) : [...prev, id]));
+    this.selectedIngredients.update((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
+    );
   }
 
   async createRecipe() {
