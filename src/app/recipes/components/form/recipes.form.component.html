@@ -1,25 +1,25 @@
 <section class="create-recipe-form">
-  <h3>Crear receta</h3>
-  <label for="recipe-name">Nombre:</label>
+  <h3>Create recipe</h3>
+  <label for="recipe-name">Name:</label>
   <input id="recipe-name" [formControl]="form.controls.name" aria-describedby="recipes-live" />
   <br />
-  <label for="ingredient-select">Ingredientes:</label>
+  <label for="ingredient-select">Ingredients:</label>
   <select
     id="ingredient-select"
     (change)="onToggleIngredient($event)"
-    aria-label="Agregar ingrediente"
+    aria-label="Add ingredient"
   >
-    <option value="">— selecciona —</option>
+    <option value="">— select —</option>
     @for (ing of ingredients(); track ing.id) {
       <option [value]="ing.id">{{ ing.name }}</option>
     }
   </select>
   <div>
-    Ingredientes seleccionados:
+    Selected ingredients:
     @for (name of selectedIngredientNames(); track name) {
       <span>{{ name }} </span>
     }
   </div>
   <div id="recipes-live" aria-live="polite" class="visually-hidden">{{ liveMessage() }}</div>
-  <button (click)="createRecipe()">Crear</button>
+  <button (click)="createRecipe()">Create</button>
 </section>

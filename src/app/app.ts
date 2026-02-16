@@ -9,14 +9,14 @@ import { MenubarModule } from 'primeng/menubar';
   styleUrls: ['./app.scss'],
 })
 export class App {
-  protected readonly title = signal('menu-semanal');
+  protected readonly title = signal('weekly-menu');
   protected readonly menuItems = [
-    { label: 'Semana', icon: 'pi pi-calendar', routerLink: '/' },
+    { label: 'Week', icon: 'pi pi-calendar', routerLink: '/' },
     {
-      label: 'Recetas',
+      label: 'Recipes',
       icon: 'pi pi-book',
       routerLink: '/recipes',
     },
-    { label: 'Ingredientes', icon: 'pi pi-tags', routerLink: '/ingredients' },
+    { label: 'Ingredients', icon: 'pi pi-tags', routerLink: '/ingredients' },
   ];
 }

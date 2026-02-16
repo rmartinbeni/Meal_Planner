@@ -57,7 +57,7 @@ export class RecipesFormComponent {
     this.form.get('name')?.setValue('');
     this.selectedIngredients.set([]);
     this.recipeAdded.emit();
-    this.liveMessage.set('Receta creada');
+    this.liveMessage.set('Recipe created');
     const el = document.getElementById('recipe-name') as HTMLInputElement | null;
     el?.focus();
   }

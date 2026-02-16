@@ -16,7 +16,7 @@ interface Recipe {
 export class WeeklyFormComponent {
   readonly recipes = input.required<Recipe[]>();
 
-  readonly days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  readonly days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   readonly assignments = signal<
     Record<string, { breakfast: number | null; lunch: number | null; dinner: number | null }>
   >(Object.fromEntries(this.days.map((d) => [d, { breakfast: null, lunch: null, dinner: null }])));

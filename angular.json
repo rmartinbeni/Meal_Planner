@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "menu-semanal": {
+    "meal-planner": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -66,10 +66,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "menu-semanal:build:production"
+              "buildTarget": "weekly-menu:build:production"
             },
             "development": {
-              "buildTarget": "menu-semanal:build:development"
+              "buildTarget": "weekly-menu:build:development"
             }
           },
           "defaultConfiguration": "development"

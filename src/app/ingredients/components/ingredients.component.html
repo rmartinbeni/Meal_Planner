@@ -2,7 +2,7 @@
   <p class="error-message">{{ errorMessage() }}</p>
 }
 
-<h2 class="text-xl font-bold mb-4">Todos los ingredientes</h2>
+<h2 class="text-xl font-bold mb-4">All ingredients</h2>
 <meal-planner-table
   [data]="ingredients()"
   [columns]="['name']"
@@ -10,7 +10,7 @@
 />
 
 <p-dialog
-  header="Añadir ingrediente"
+  header="Add ingredient"
   [visible]="isFormVisible()"
   (visibleChange)="isFormVisible.set($event)"
 >

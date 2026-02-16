@@ -1,8 +1,8 @@
-<h2 class="text-xl font-bold mb-4">Lista de recetas</h2>
+<h2 class="text-xl font-bold mb-4">Recipe list</h2>
 <meal-planner-table [data]="recipes()" [columns]="['name']" (addItem)="showForm()" />
 
 <p-dialog
-  header="Añadir receta"
+  header="Add recipe"
   [visible]="isFormVisible()"
   (visibleChange)="isFormVisible.set($event)"
 >

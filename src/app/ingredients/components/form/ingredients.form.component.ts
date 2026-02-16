@@ -29,7 +29,7 @@ export class IngredientsFormComponent {
 
     this.form.controls.name.setValue('');
     this.ingredientAdded.emit();
-    this.liveMessage.set('Ingrediente añadido');
+    this.liveMessage.set('Ingredient added');
   }
 
   constructor() {
