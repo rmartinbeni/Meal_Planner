@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RecipesService } from '@app/recipes/service/recipes.service';
 import { IngredientsService } from '@app/ingredients/service/ingredients.service';
 import { RecipesFormComponent } from './form/recipes.form.component';
+import { TableComponent } from '@app/shared/table/table.component';
+import { DialogModule } from 'primeng/dialog';
 
 interface Ingredient {
   id: number;
@@ -16,7 +17,8 @@ interface Recipe {
 
 @Component({
   selector: 'meal-planner-recipes',
-  imports: [CommonModule, RecipesFormComponent],
+  standalone: true,
+  imports: [RecipesFormComponent, TableComponent, DialogModule],
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,6 +29,7 @@ export class RecipesComponent implements OnInit {
 
   readonly ingredients = signal<Ingredient[]>([]);
   readonly recipes = signal<Recipe[]>([]);
+  readonly isFormVisible = signal(false);
 
   ngOnInit() {
     void this.loadIngredients();
@@ -43,5 +46,9 @@ export class RecipesComponent implements OnInit {
     const { data, error } = await this.recipeService.getAll();
     if (error) return console.error(error);
     this.recipes.set(data || []);
+  }
+
+  showForm() {
+    this.isFormVisible.set(true);
   }
 }

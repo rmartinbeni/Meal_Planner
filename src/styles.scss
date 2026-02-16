@@ -8,3 +8,13 @@
   clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
 }
+
+.p-paginator {
+  display: flex;
+  justify-content: flex-end !important;
+}
+
+.p-paginator-current {
+  display: flex;
+  align-items: center;
+}

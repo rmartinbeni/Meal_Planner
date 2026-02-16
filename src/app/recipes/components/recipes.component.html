@@ -1,12 +1,13 @@
-<h2>Recetas</h2>
+<h2 class="text-xl font-bold mb-4">Lista de recetas</h2>
+<meal-planner-table [data]="recipes()" [columns]="['name']" (addItem)="showForm()" />
 
-<meal-planner-recipes-form [ingredients]="ingredients()" (recipeAdded)="loadRecipes()" />
-
-<section>
-  <h3>Lista de recetas</h3>
-  <ul>
-    @for (r of recipes(); track r.id) {
-      <li>{{ r.name }} (id: {{ r.id }})</li>
-    }
-  </ul>
-</section>
+<p-dialog
+  header="Añadir receta"
+  [visible]="isFormVisible()"
+  (visibleChange)="isFormVisible.set($event)"
+>
+  <meal-planner-recipes-form
+    [ingredients]="ingredients()"
+    (recipeAdded)="loadRecipes(); isFormVisible.set(false)"
+  />
+</p-dialog>

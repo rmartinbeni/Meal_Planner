@@ -1,0 +1,9 @@
+p-table {
+  display: block;
+  min-width: 50rem;
+}
+
+th:first-child,
+td:first-child {
+  width: 3rem;
+}
