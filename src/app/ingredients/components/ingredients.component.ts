@@ -3,6 +3,7 @@ import { IngredientsService } from '@app/ingredients/service/ingredients.service
 import { IngredientsFormComponent } from './form/ingredients.form.component';
 import { TableComponent } from '@app/shared/table/table.component';
 import { DialogModule } from 'primeng/dialog';
+import { Ingredient } from '@app/ingredients/domain/ingredient.model';
 
 @Component({
   selector: 'meal-planner-ingredients',
@@ -15,7 +16,7 @@ import { DialogModule } from 'primeng/dialog';
 export class IngredientsComponent implements OnInit {
   private readonly ingredientsService = inject(IngredientsService);
 
-  readonly ingredients = signal<{ id: number; name: string }[]>([]);
+  readonly ingredients = signal<Ingredient[]>([]);
   readonly errorMessage = signal('');
   readonly isFormVisible = signal(false);
 

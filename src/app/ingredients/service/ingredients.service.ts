@@ -10,6 +10,6 @@ export class IngredientsService {
   }
 
   async create(name: string) {
-    return this.repo.create(name);
+    return this.repo.create({ name });
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { WeeklyRepository } from '@app/weekly/repository/weekly.repository';
+import { WeeklyPlan } from '@app/weekly/domain/weekly-plan.model';
 
 @Injectable({ providedIn: 'root' })
 export class WeeklyService {
@@ -9,7 +10,7 @@ export class WeeklyService {
     return this.repo.getAll();
   }
 
-  async create(payload: unknown) {
-    return this.repo.create(payload);
+  async create(weeklyPlan: Omit<WeeklyPlan, 'id'>) {
+    return this.repo.create(weeklyPlan);
   }
 }

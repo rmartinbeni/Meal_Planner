@@ -4,16 +4,8 @@ import { IngredientsService } from '@app/ingredients/service/ingredients.service
 import { RecipesFormComponent } from './form/recipes.form.component';
 import { TableComponent } from '@app/shared/table/table.component';
 import { DialogModule } from 'primeng/dialog';
-
-interface Ingredient {
-  id: number;
-  name: string;
-}
-
-interface Recipe {
-  id: number;
-  name: string;
-}
+import { Ingredient } from '@app/ingredients/domain/ingredient.model';
+import { RecipeListItem } from '@app/recipes/repository/recipes.repository';
 
 @Component({
   selector: 'meal-planner-recipes',
@@ -28,7 +20,7 @@ export class RecipesComponent implements OnInit {
   private readonly ingredientService = inject(IngredientsService);
 
   readonly ingredients = signal<Ingredient[]>([]);
-  readonly recipes = signal<Recipe[]>([]);
+  readonly recipes = signal<RecipeListItem[]>([]);
   readonly isFormVisible = signal(false);
 
   ngOnInit() {
