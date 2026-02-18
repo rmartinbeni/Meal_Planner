@@ -3,42 +3,50 @@
     #dt
     [value]="data()"
     [columns]="columns()"
-    [paginator]="true"
+    [paginator]="showPaginator()"
     [rows]="rows()"
     [rowsPerPageOptions]="rowsPerPageOptions()"
     [showCurrentPageReport]="true"
     [rowHover]="true"
     class="p-datatable-striped"
-    sortMode="multiple"
-    selectionMode="multiple"
+    [sortMode]="showSorters() ? 'multiple' : 'single'"
+    [selectionMode]="showCheckboxes() ? 'multiple' : undefined"
   >
-    <ng-template pTemplate="caption">
-      <div class="flex justify-content-start">
-        <p-button label="Add" icon="pi pi-plus" (onClick)="addItem.emit()" />
-      </div>
-    </ng-template>
+    @if (showCaption()) {
+      <ng-template pTemplate="caption">
+        <div class="flex justify-content-start">
+          <p-button label="Add" icon="pi pi-plus" (onClick)="addItem.emit()" />
+        </div>
+      </ng-template>
+    }
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th>
-          <p-tableHeaderCheckbox />
-        </th>
+        @if (showCheckboxes()) {
+          <th>
+            <p-tableHeaderCheckbox />
+          </th>
+        }
         @for (col of columns; track col) {
-          <th [pSortableColumn]="col">
+          <th [pSortableColumn]="showSorters() ? col : null">
             <div class="flex align-items-center justify-content-between">
               <span class="capitalize font-bold">
                 {{ col }}
               </span>
               <div class="flex align-items-center gap-1">
-                <p-sortIcon [field]="col" />
-                <p-columnFilter
-                  type="text"
-                  [field]="col"
-                  display="menu"
-                  matchMode="contains"
-                  [showMatchModes]="false"
-                  [showOperator]="false"
-                  [showAddButton]="false"
-                />
+                @if (showSorters()) {
+                  <p-sortIcon [field]="col" />
+                }
+                @if (showFilters()) {
+                  <p-columnFilter
+                    type="text"
+                    [field]="col"
+                    display="menu"
+                    matchMode="contains"
+                    [showMatchModes]="false"
+                    [showOperator]="false"
+                    [showAddButton]="false"
+                  />
+                }
               </div>
             </div>
           </th>
@@ -47,9 +55,11 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr>
-        <td>
-          <p-tableCheckbox [value]="rowData" />
-        </td>
+        @if (showCheckboxes()) {
+          <td>
+            <p-tableCheckbox [value]="rowData" />
+          </td>
+        }
         @for (col of columns; track col) {
           <td>{{ rowData[col] }}</td>
         }
@@ -62,3 +72,4 @@
     </ng-template>
   </p-table>
 </div>
+

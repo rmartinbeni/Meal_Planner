@@ -66,10 +66,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "weekly-menu:build:production"
+              "buildTarget": "meal-planner:build:production"
             },
             "development": {
-              "buildTarget": "weekly-menu:build:development"
+              "buildTarget": "meal-planner:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -18,5 +18,10 @@ export class TableComponent<T extends object> {
   title = input<string>();
   rows = input(10);
   rowsPerPageOptions = input([10, 25, 50, 100]);
+  showCaption = input(true);
+  showCheckboxes = input(true);
+  showFilters = input(true);
+  showPaginator = input(true);
+  showSorters = input(true);
   addItem = output<void>();
 }

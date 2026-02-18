@@ -1,2 +1,9 @@
-<h2>Weekly View</h2>
-<meal-planner-weekly-form [recipes]="recipes()" />
+<meal-planner-table
+  [data]="data"
+  [columns]="columns"
+  [showPaginator]="false"
+  [showCaption]="false"
+  [showCheckboxes]="false"
+  [showFilters]="false"
+  [showSorters]="false"
+/>
