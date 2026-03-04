@@ -69,6 +69,15 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - You MUST follow the **Conventional Commits** specification (`type(scope): message`) when writing commit messages or generating commit suggestions. 
 - The project has `commitlint` installed which will strictly reject any commit message that does not adhere to conventional commits (e.g., `feat:`, `fix:`, `chore:`, `refactor:`, etc.).
 
+## Testing
+
+- Declare mock objects at the `describe` block scope as typed variables (e.g., `let mockRepo: { getAll: ReturnType<typeof vi.fn> }`).
+- Assign the mock inside `beforeEach` and pass it **directly** as `useValue` to `TestBed.configureTestingModule` or `overrideComponent`.
+- **NEVER** re-fetch a mock from the injector just to get a typed reference. There is no need to call `TestBed.inject()` or `fixture.debugElement.injector.get()` on a token that you already provided as a spy — you already hold the reference.
+- **NEVER** use the double-cast `as unknown as typeof mockX` pattern. It is a code smell that signals the mock wiring is wrong.
+- **NEVER** use `as unknown as ServiceType` when providing a partial spy to `useValue`. TypeScript will accept a plain object literal as `useValue` because the field is typed as `any` internally.
+- Use the generic `querySelector<HTMLInputElement>()` overload combined with an explicit `=== null` guard instead of type assertions, for DOM element access in tests.
+
 ## Services
 
 - Design services around a single responsibility
