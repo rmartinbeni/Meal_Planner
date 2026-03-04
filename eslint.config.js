@@ -5,6 +5,8 @@ import angular from 'angular-eslint';
 import sonarjs from 'eslint-plugin-sonarjs';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
+import eslintConfigPrettier from 'eslint-config-prettier';
+
 export default defineConfig([
   {
     files: ['**/*.ts'],
@@ -15,6 +17,7 @@ export default defineConfig([
       angular.configs.tsRecommended,
       sonarjs.configs.recommended,
       eslintPluginUnicorn.configs['recommended'],
+      eslintConfigPrettier,
     ],
     languageOptions: {
       parser: tseslint.parser,
@@ -47,6 +50,12 @@ export default defineConfig([
   {
     files: ['**/*.html'],
     extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
-    rules: {},
+    rules: {
+      '@angular-eslint/template/prefer-control-flow': 'error',
+      '@angular-eslint/template/prefer-self-closing-tags': 'error',
+      '@angular-eslint/template/eqeqeq': 'error',
+      '@angular-eslint/template/no-any': 'error',
+      '@angular-eslint/template/no-negated-async': 'error',
+    },
   },
 ]);

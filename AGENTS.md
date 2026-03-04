@@ -5,6 +5,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use strict type checking
 - Prefer type inference when the type is obvious
 - Avoid the `any` type; use `unknown` when type is uncertain
+- Use path aliases configured in TypeScript (e.g., `@app/*`, `@shared/*`, `@core/*`) for imports instead of long relative paths. Relative paths are fine for files in the exact same directory.
 
 ## Angular Best Practices
 
@@ -21,13 +22,19 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - It MUST pass all AXE checks.
 - It MUST follow all WCAG AA minimums, including focus management, color contrast, and ARIA attributes.
 
+## Styling & Formatting
+
+- Use SCSS for styling.
+- Rely on Prettier for code formatting (printWidth: 100, singleQuote: true) alongside `eslint-config-prettier` to prevent conflicts.
+
 ### Components
 
 - Keep components small and focused on a single responsibility
+- Use `meal-planner` as the selector prefix for components (kebab-case) and directives (camelCase), as enforced by ESLint.
 - Use `input()` and `output()` functions instead of decorators
 - Use `computed()` for derived state
 - Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
-- Prefer inline templates for small components
+- Always use external templates (`.html`) and styles (`.scss`) files, even for small components.
 - Prefer Reactive forms instead of Template-driven ones
 - Do NOT use `ngClass`, use `class` bindings instead
 - Do NOT use `ngStyle`, use `style` bindings instead
@@ -47,6 +54,10 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use the async pipe to handle observables
 - Do not assume globals like (`new Date()`) are available.
 - Do not write arrow functions in templates (they are not supported).
+- Use self-closing tags when elements have no content.
+- Use strict equality (`===` or `!==`) in template expressions.
+- Avoid casting to `any` in templates (e.g., `$any()`).
+- Avoid negated async pipes (e.g., `!(obs | async)`).
 
 ## Services
 
