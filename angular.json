@@ -82,7 +82,11 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "watch": false
+            "watch": false,
+            "reporters": [
+              "dot"
+            ],
+            "runnerConfig": "vitest.config.ts"
           }
         },
         "lint": {
