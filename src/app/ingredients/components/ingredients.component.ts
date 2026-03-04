@@ -26,8 +26,8 @@ export class IngredientsComponent implements OnInit {
   async load() {
     this.errorMessage.set('');
     const { data, error } = await this.ingredientsService.getAll();
-    if (error) return this.errorMessage.set('Failed to load ingredients');
-    this.ingredients.set(data || []);
+    if (error) { this.errorMessage.set('Failed to load ingredients'); return; }
+    this.ingredients.set(data);
   }
 
   showForm() {

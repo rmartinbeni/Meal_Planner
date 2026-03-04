@@ -47,6 +47,6 @@ export class WeeklyComponent implements OnInit {
       console.error('Error loading recipes', error);
       return;
     }
-    this.recipes.set((data as Recipe[]) ?? []);
+    this.recipes.set(data as Recipe[]);
   }
 }

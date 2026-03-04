@@ -11,6 +11,11 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "useUnknownInCatchVariables": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
@@ -26,5 +31,12 @@
     "strictSafeNavigationTypes": true
   },
   "files": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.spec.json" }]
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

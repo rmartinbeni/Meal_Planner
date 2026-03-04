@@ -18,19 +18,19 @@ export class WeeklyFormComponent {
 
   readonly days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   readonly assignments = signal<
-    Record<string, { breakfast: number | null; lunch: number | null; dinner: number | null }>
-  >(Object.fromEntries(this.days.map((d) => [d, { breakfast: null, lunch: null, dinner: null }])));
+    Record<string, { breakfast: number | undefined; lunch: number | undefined; dinner: number | undefined }>
+  >(Object.fromEntries(this.days.map((d) => [d, { breakfast: undefined, lunch: undefined, dinner: undefined }])));
 
   setAssignment(day: string, slot: 'breakfast' | 'lunch' | 'dinner', value: string) {
-    const id = value === '' ? null : Number(value);
-    this.assignments.update((prev) => ({
-      ...prev,
-      [day]: { ...prev[day], [slot]: id },
+    const id = value === '' ? undefined : Number(value);
+    this.assignments.update((previous) => ({
+      ...previous,
+      [day]: { ...(previous[day] ?? { breakfast: undefined, lunch: undefined, dinner: undefined }), [slot]: id },
     }));
   }
 
-  onAssignmentChange(e: Event, day: string, slot: 'breakfast' | 'lunch' | 'dinner') {
-    const value = (e.target as HTMLSelectElement).value;
+  onAssignmentChange(event: Event, day: string, slot: 'breakfast' | 'lunch' | 'dinner') {
+    const value = (event.target as HTMLSelectElement).value;
     this.setAssignment(day, slot, value);
   }
 }

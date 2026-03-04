@@ -29,14 +29,14 @@ export class RecipesComponent implements OnInit {
 
   async loadIngredients() {
     const { data, error } = await this.ingredientService.getAll();
-    if (error) return console.error(error);
-    this.ingredients.set(data || []);
+    if (error) { console.error(error); return; }
+    this.ingredients.set(data);
   }
 
   async loadRecipes() {
     const { data, error } = await this.recipeService.getAll();
-    if (error) return console.error(error);
-    this.recipes.set(data || []);
+    if (error) { console.error(error); return; }
+    this.recipes.set(data);
   }
 
   showForm() {

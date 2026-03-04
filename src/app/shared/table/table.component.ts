@@ -22,5 +22,5 @@ export class TableComponent<T extends object> {
   showFilters = input(true);
   showPaginator = input(true);
   showSorters = input(true);
-  addItem = output<void>();
+  addItem = output();
 }

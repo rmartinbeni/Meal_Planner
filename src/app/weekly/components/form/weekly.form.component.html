@@ -13,7 +13,7 @@
         <td>{{ day }}</td>
         <td>
           <select
-            [value]="assignments()[day].breakfast ?? ''"
+            [value]="assignments()[day]?.breakfast ?? ''"
             (change)="onAssignmentChange($event, day, 'breakfast')"
           >
             <option value="">—</option>
@@ -24,7 +24,7 @@
         </td>
         <td>
           <select
-            [value]="assignments()[day].lunch ?? ''"
+            [value]="assignments()[day]?.lunch ?? ''"
             (change)="onAssignmentChange($event, day, 'lunch')"
           >
             <option value="">—</option>
@@ -35,7 +35,7 @@
         </td>
         <td>
           <select
-            [value]="assignments()[day].dinner ?? ''"
+            [value]="assignments()[day]?.dinner ?? ''"
             (change)="onAssignmentChange($event, day, 'dinner')"
           >
             <option value="">—</option>

@@ -27,43 +27,44 @@ export class RecipesFormComponent {
   private readonly recipeService = inject(RecipesService);
 
   readonly ingredients = input.required<Ingredient[]>();
-  readonly recipeAdded = output<void>();
+  readonly recipeAdded = output();
 
   readonly form = new FormGroup({ name: new FormControl('') });
   readonly selectedIngredients = signal<number[]>([]);
   readonly liveMessage = signal('');
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   readonly selectedIngredientNames = computed(() => {
     const ids = this.selectedIngredients();
     const allIngs = this.ingredients();
-    return ids.map((id) => allIngs.find((i) => i.id === id)?.name).filter(Boolean) as string[];
+    return ids.map((id) => allIngs.find((index) => index.id === id)?.name).filter(Boolean) as string[];
   });
 
-  toggleIngredient(idStr: string) {
-    const id = Number(idStr);
+  toggleIngredient(idString: string) {
+    const id = Number(idString);
     if (!id) return;
-    this.selectedIngredients.update((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
+    this.selectedIngredients.update((previous) =>
+      previous.includes(id) ? previous.filter((index) => index !== id) : [...previous, id],
     );
   }
 
   async createRecipe() {
     const toInsert = {
-      name: (this.form.get('name')?.value ?? '').toString(),
+      name: this.form.get('name')?.value ?? '',
       ingredient_ids: this.selectedIngredients(),
     };
     const { error } = await this.recipeService.create(toInsert);
-    if (error) return console.error('Error creating recipe', error);
+    if (error) { console.error('Error creating recipe', error); return; }
     this.form.get('name')?.setValue('');
     this.selectedIngredients.set([]);
     this.recipeAdded.emit();
     this.liveMessage.set('Recipe created');
-    const el = document.getElementById('recipe-name') as HTMLInputElement | null;
-    el?.focus();
+    const element = document.querySelector<HTMLElement>('#recipe-name');
+    element?.focus();
   }
 
-  onToggleIngredient(e: Event) {
-    const val = (e.target as HTMLSelectElement).value;
-    this.toggleIngredient(val);
+  onToggleIngredient(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    this.toggleIngredient(value);
   }
 }

@@ -18,14 +18,14 @@ export class IngredientsFormComponent {
   });
   readonly liveMessage = signal('');
   readonly errorMessage = signal('');
-  readonly ingredientAdded = output<void>();
+  readonly ingredientAdded = output();
 
   async add() {
     const value = this.form.controls.name.value.trim();
     if (!value) return;
 
     const { error } = await this.ingredientsService.create(value);
-    if (error) return this.errorMessage.set('Failed to add ingredient');
+    if (error) { this.errorMessage.set('Failed to add ingredient'); return; }
 
     this.form.controls.name.setValue('');
     this.ingredientAdded.emit();
@@ -35,9 +35,9 @@ export class IngredientsFormComponent {
   constructor() {
     effect(() => {
       if (this.liveMessage()) {
-        const el = document.getElementById('ingredient-name') as HTMLInputElement | null;
-        el?.focus();
-        setTimeout(() => this.liveMessage.set(''), 3000);
+        const element = document.querySelector<HTMLElement>('#ingredient-name');
+        element?.focus();
+        setTimeout(() => { this.liveMessage.set(''); }, 3000);
       }
     });
   }

@@ -2,15 +2,19 @@ import eslint from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
+import sonarjs from 'eslint-plugin-sonarjs';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
 export default defineConfig([
   {
     files: ['**/*.ts'],
     extends: [
       eslint.configs.recommended,
-      tseslint.configs.recommendedTypeChecked,
-      tseslint.configs.stylistic,
+      tseslint.configs.strictTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
       angular.configs.tsRecommended,
+      sonarjs.configs.recommended,
+      eslintPluginUnicorn.configs['recommended'],
     ],
     languageOptions: {
       parser: tseslint.parser,
