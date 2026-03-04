@@ -59,6 +59,19 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Avoid casting to `any` in templates (e.g., `$any()`).
 - Avoid negated async pipes (e.g., `!(obs | async)`).
 
+## Verification Rules (AI Safeguards)
+
+- ALWAYS update or create the corresponding `.spec.ts` testing file when modifying critical logic, services, or templates.
+- ALWAYS execute `npm run test` before marking a task as explicitly completed or notifying the user. Do NOT push incomplete code that breaks unit tests.
+
+## Git Commits
+
+- You MUST follow the **Conventional Commits** specification (`type(scope): message`) when writing commit messages or generating commit suggestions. 
+- The project has `commitlint` installed which will strictly reject any commit message that does not adhere to conventional commits (e.g., `feat:`, `fix:`, `chore:`, `refactor:`, etc.).
+
+- ALWAYS update or create the corresponding `.spec.ts` testing file when modifying critical logic, services, or templates.
+- ALWAYS execute `npm run test` before marking a task as explicitly completed or notifying the user. Do NOT push incomplete code that breaks unit tests.
+
 ## Services
 
 - Design services around a single responsibility
