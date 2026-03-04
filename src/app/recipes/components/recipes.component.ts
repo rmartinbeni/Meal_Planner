@@ -9,7 +9,6 @@ import { RecipeListItem } from '@app/recipes/repository/recipes.repository';
 
 @Component({
   selector: 'meal-planner-recipes',
-  standalone: true,
   imports: [RecipesFormComponent, TableComponent, DialogModule],
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.scss'],

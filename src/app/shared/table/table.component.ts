@@ -6,7 +6,6 @@ import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'meal-planner-table',
-  standalone: true,
   imports: [TableModule, InputTextModule, CardModule, ButtonModule],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],

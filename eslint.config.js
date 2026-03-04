@@ -17,7 +17,7 @@ export default defineConfig([
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: './tsconfig.app.json',
+        project: ['./tsconfig.app.json', './tsconfig.spec.json'],
       },
     },
     processor: angular.processInlineTemplates,

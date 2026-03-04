@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { WeeklyService } from '@app/weekly/service/weekly.service';
 import { TableComponent } from '@app/shared/table/table.component';
 
@@ -21,7 +20,7 @@ interface WeeklyMeal {
 
 @Component({
   selector: 'meal-planner-weekly',
-  imports: [CommonModule, TableComponent],
+  imports: [TableComponent],
   templateUrl: './weekly.component.html',
   styleUrls: ['./weekly.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

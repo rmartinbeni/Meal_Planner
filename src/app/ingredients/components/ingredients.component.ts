@@ -7,7 +7,6 @@ import { Ingredient } from '@app/ingredients/domain/ingredient.model';
 
 @Component({
   selector: 'meal-planner-ingredients',
-  standalone: true,
   imports: [IngredientsFormComponent, TableComponent, DialogModule],
   templateUrl: './ingredients.component.html',
   styleUrls: ['./ingredients.component.scss'],
