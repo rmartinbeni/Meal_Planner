@@ -1,2 +1,2 @@
-pnpm run test -- --watch=false
+pnpm run test
 pnpm run build
