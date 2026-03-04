@@ -1,8 +1,11 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { WeeklyPlan } from './weekly-plan.model';
 
-export const WEEKLY_PLAN_REPOSITORY = new InjectionToken<WeeklyPlanRepository>('WeeklyPlanRepository');
+export const WEEKLY_PLAN_REPOSITORY = new InjectionToken<WeeklyPlanRepository>(
+  'WeeklyPlanRepository',
+);
 
 export interface WeeklyPlanRepository {
   getAll(): Observable<WeeklyPlan[]>;

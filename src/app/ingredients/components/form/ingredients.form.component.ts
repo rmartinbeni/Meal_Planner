@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, output, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, effect, inject, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IngredientsService } from '@app/ingredients/service/ingredients.service';
 
@@ -25,7 +25,10 @@ export class IngredientsFormComponent {
     if (!value) return;
 
     const { error } = await this.ingredientsService.create(value);
-    if (error) { this.errorMessage.set('Failed to add ingredient'); return; }
+    if (error) {
+      this.errorMessage.set('Failed to add ingredient');
+      return;
+    }
 
     this.form.controls.name.setValue('');
     this.ingredientAdded.emit();
@@ -37,7 +40,9 @@ export class IngredientsFormComponent {
       if (this.liveMessage()) {
         const element = document.querySelector<HTMLElement>('#ingredient-name');
         element?.focus();
-        setTimeout(() => { this.liveMessage.set(''); }, 3000);
+        setTimeout(() => {
+          this.liveMessage.set('');
+        }, 3000);
       }
     });
   }

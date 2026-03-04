@@ -4,12 +4,16 @@ import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
 import sonarjs from 'eslint-plugin-sonarjs';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default defineConfig([
   {
     files: ['**/*.ts'],
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
     extends: [
       eslint.configs.recommended,
       tseslint.configs.strictTypeChecked,
@@ -29,6 +33,8 @@ export default defineConfig([
     },
     processor: angular.processInlineTemplates,
     rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
       '@angular-eslint/directive-selector': [
         'error',
         {

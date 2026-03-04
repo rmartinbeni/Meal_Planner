@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { supabaseClient } from '@core/supabase/supabase.client';
 import { Ingredient } from '@app/ingredients/domain/ingredient.model';
+import { supabaseClient } from '@core/supabase/supabase.client';
 
 @Injectable({ providedIn: 'root' })
 export class IngredientsRepository {

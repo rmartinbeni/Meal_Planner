@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { WeeklyRepository } from '@app/weekly/repository/weekly.repository';
+import { inject, Injectable } from '@angular/core';
 import { WeeklyPlan } from '@app/weekly/domain/weekly-plan.model';
+import { WeeklyRepository } from '@app/weekly/repository/weekly.repository';
 
 @Injectable({ providedIn: 'root' })
 export class WeeklyService {

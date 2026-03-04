@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { RecipesService } from '@app/recipes/service/recipes.service';
+import { Ingredient } from '@app/ingredients/domain/ingredient.model';
 import { IngredientsService } from '@app/ingredients/service/ingredients.service';
-import { RecipesFormComponent } from './form/recipes.form.component';
+import { RecipeListItem } from '@app/recipes/repository/recipes.repository';
+import { RecipesService } from '@app/recipes/service/recipes.service';
 import { TableComponent } from '@app/shared/table/table.component';
 import { DialogModule } from 'primeng/dialog';
-import { Ingredient } from '@app/ingredients/domain/ingredient.model';
-import { RecipeListItem } from '@app/recipes/repository/recipes.repository';
+
+import { RecipesFormComponent } from './form/recipes.form.component';
 
 @Component({
   selector: 'meal-planner-recipes',
@@ -29,13 +30,19 @@ export class RecipesComponent implements OnInit {
 
   async loadIngredients() {
     const { data, error } = await this.ingredientService.getAll();
-    if (error) { console.error(error); return; }
+    if (error) {
+      console.error(error);
+      return;
+    }
     this.ingredients.set(data);
   }
 
   async loadRecipes() {
     const { data, error } = await this.recipeService.getAll();
-    if (error) { console.error(error); return; }
+    if (error) {
+      console.error(error);
+      return;
+    }
     this.recipes.set(data);
   }
 

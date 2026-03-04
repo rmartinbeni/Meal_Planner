@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
-import { WeeklyService } from '@app/weekly/service/weekly.service';
 import { TableComponent } from '@app/shared/table/table.component';
+import { WeeklyService } from '@app/weekly/service/weekly.service';
 
 interface Recipe {
   id: number;
@@ -30,11 +30,47 @@ export class WeeklyComponent implements OnInit {
 
   readonly recipes = signal<Recipe[]>([]);
 
-  readonly columns: (keyof WeeklyMeal)[] = ['meal', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  readonly columns: (keyof WeeklyMeal)[] = [
+    'meal',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
   readonly data: WeeklyMeal[] = [
-    { meal: 'Breakfast', Monday: '', Tuesday: '', Wednesday: '', Thursday: '', Friday: '', Saturday: '', Sunday: '' },
-    { meal: 'Lunch',     Monday: '', Tuesday: '', Wednesday: '', Thursday: '', Friday: '', Saturday: '', Sunday: '' },
-    { meal: 'Dinner',    Monday: '', Tuesday: '', Wednesday: '', Thursday: '', Friday: '', Saturday: '', Sunday: '' },
+    {
+      meal: 'Breakfast',
+      Monday: '',
+      Tuesday: '',
+      Wednesday: '',
+      Thursday: '',
+      Friday: '',
+      Saturday: '',
+      Sunday: '',
+    },
+    {
+      meal: 'Lunch',
+      Monday: '',
+      Tuesday: '',
+      Wednesday: '',
+      Thursday: '',
+      Friday: '',
+      Saturday: '',
+      Sunday: '',
+    },
+    {
+      meal: 'Dinner',
+      Monday: '',
+      Tuesday: '',
+      Wednesday: '',
+      Thursday: '',
+      Friday: '',
+      Saturday: '',
+      Sunday: '',
+    },
   ];
 
   ngOnInit() {

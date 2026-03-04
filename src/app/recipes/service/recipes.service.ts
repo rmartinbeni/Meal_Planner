@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { RecipesRepository } from '@app/recipes/repository/recipes.repository';
 
 @Injectable({ providedIn: 'root' })

@@ -1,5 +1,5 @@
-import { UnitOfMeasure } from '@shared/domain/unit.model';
 import { mealType } from '@shared/domain/meal.model';
+import { UnitOfMeasure } from '@shared/domain/unit.model';
 
 export interface RecipeIngredient {
   ingredientId: number;

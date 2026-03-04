@@ -1,8 +1,11 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { Ingredient } from './ingredient.model';
 
-export const INGREDIENT_REPOSITORY = new InjectionToken<IngredientRepository>('IngredientRepository');
+export const INGREDIENT_REPOSITORY = new InjectionToken<IngredientRepository>(
+  'IngredientRepository',
+);
 
 export interface IngredientRepository {
   getAll(): Observable<Ingredient[]>;

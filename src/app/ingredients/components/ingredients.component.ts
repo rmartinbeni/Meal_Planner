@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { Ingredient } from '@app/ingredients/domain/ingredient.model';
 import { IngredientsService } from '@app/ingredients/service/ingredients.service';
-import { IngredientsFormComponent } from './form/ingredients.form.component';
 import { TableComponent } from '@app/shared/table/table.component';
 import { DialogModule } from 'primeng/dialog';
-import { Ingredient } from '@app/ingredients/domain/ingredient.model';
+
+import { IngredientsFormComponent } from './form/ingredients.form.component';
 
 @Component({
   selector: 'meal-planner-ingredients',
@@ -26,7 +27,10 @@ export class IngredientsComponent implements OnInit {
   async load() {
     this.errorMessage.set('');
     const { data, error } = await this.ingredientsService.getAll();
-    if (error) { this.errorMessage.set('Failed to load ingredients'); return; }
+    if (error) {
+      this.errorMessage.set('Failed to load ingredients');
+      return;
+    }
     this.ingredients.set(data);
   }
 

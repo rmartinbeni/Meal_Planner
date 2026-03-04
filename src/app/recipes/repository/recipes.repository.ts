@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { supabaseClient } from '@core/supabase/supabase.client';
 import { Recipe } from '@app/recipes/domain/recipe.model';
+import { supabaseClient } from '@core/supabase/supabase.client';
 
 export type RecipeListItem = Pick<Recipe, 'id' | 'name'>;
 

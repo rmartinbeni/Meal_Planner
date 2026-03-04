@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { Recipe } from './recipe.model';
 
 export const RECIPE_REPOSITORY = new InjectionToken<RecipeRepository>('RecipeRepository');

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { supabaseClient } from '@core/supabase/supabase.client';
-
 import { WeeklyPlan } from '@app/weekly/domain/weekly-plan.model';
+import { supabaseClient } from '@core/supabase/supabase.client';
 
 @Injectable({ providedIn: 'root' })
 export class WeeklyRepository {

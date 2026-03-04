@@ -1,13 +1,13 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   inject,
-  signal,
-  output,
   input,
+  output,
+  signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RecipesService } from '@app/recipes/service/recipes.service';
 
@@ -37,7 +37,9 @@ export class RecipesFormComponent {
   readonly selectedIngredientNames = computed(() => {
     const ids = this.selectedIngredients();
     const allIngs = this.ingredients();
-    return ids.map((id) => allIngs.find((index) => index.id === id)?.name).filter(Boolean) as string[];
+    return ids
+      .map((id) => allIngs.find((index) => index.id === id)?.name)
+      .filter(Boolean) as string[];
   });
 
   toggleIngredient(idString: string) {
@@ -54,7 +56,10 @@ export class RecipesFormComponent {
       ingredient_ids: this.selectedIngredients(),
     };
     const { error } = await this.recipeService.create(toInsert);
-    if (error) { console.error('Error creating recipe', error); return; }
+    if (error) {
+      console.error('Error creating recipe', error);
+      return;
+    }
     this.form.get('name')?.setValue('');
     this.selectedIngredients.set([]);
     this.recipeAdded.emit();
