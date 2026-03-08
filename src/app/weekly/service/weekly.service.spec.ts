@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { RecipesService } from '@app/recipes/service/recipes.service';
 import { WeeklyRepository } from '@app/weekly/repository/weekly.repository';
 
 import { WeeklyService } from './weekly.service';
@@ -6,15 +7,23 @@ import { WeeklyService } from './weekly.service';
 describe('WeeklyService', () => {
   let service: WeeklyService;
   let mockRepo: { getAll: ReturnType<typeof vi.fn>; create: ReturnType<typeof vi.fn> };
+  let mockRecipesService: { getRandom: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {
     mockRepo = {
       getAll: vi.fn(),
       create: vi.fn(),
     };
+    mockRecipesService = {
+      getRandom: vi.fn(),
+    };
 
     TestBed.configureTestingModule({
-      providers: [WeeklyService, { provide: WeeklyRepository, useValue: mockRepo }],
+      providers: [
+        WeeklyService,
+        { provide: WeeklyRepository, useValue: mockRepo },
+        { provide: RecipesService, useValue: mockRecipesService },
+      ],
     });
 
     service = TestBed.inject(WeeklyService);
@@ -51,6 +60,42 @@ describe('WeeklyService', () => {
 
       expect(mockRepo.create).toHaveBeenCalledWith(payload);
       expect(result).toEqual(mockResult);
+    });
+  });
+
+  describe('generateRandomWeek', () => {
+    it('should generate a randomized week calling RecipesService.getRandom', async () => {
+      const mockRecipes = [
+        { id: 1, name: 'Pizza' },
+        { id: 2, name: 'Burger' },
+      ];
+      mockRecipesService.getRandom.mockResolvedValue({ data: mockRecipes, error: undefined });
+
+      const result = await service.generateRandomWeek();
+
+      expect(mockRecipesService.getRandom).toHaveBeenCalledWith(15);
+      expect(result.length).toBe(3); // Breakfast, Lunch, Dinner
+
+      const firstMeal = result[0];
+      expect(firstMeal).toBeDefined();
+      if (firstMeal) {
+        expect(firstMeal.meal).toBe('Breakfast');
+        expect(['Pizza', 'Burger']).toContain(firstMeal.Monday);
+      }
+    });
+
+    it('should return empty array if getRandom fails', async () => {
+      mockRecipesService.getRandom.mockResolvedValue({
+        data: undefined,
+        error: { message: 'error' },
+      });
+      const mockConsoleError = vi.spyOn(console, 'error').mockImplementation(vi.fn());
+
+      const result = await service.generateRandomWeek();
+
+      expect(result).toEqual([]);
+      expect(mockConsoleError).toHaveBeenCalled();
+      mockConsoleError.mockRestore();
     });
   });
 });

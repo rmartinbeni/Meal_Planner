@@ -2,6 +2,7 @@
   <p-table
     #dt
     [value]="data()"
+    [loading]="isLoading()"
     [columns]="columns()"
     [paginator]="showPaginator()"
     [rows]="rows()"
@@ -61,15 +62,32 @@
           </td>
         }
         @for (col of columns; track col) {
-          <td>{{ rowData[col] }}</td>
+          <td>
+            {{ rowData[col] }}
+          </td>
+        }
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="loadingbody" let-columns="columns">
+      <tr>
+        @if (showCheckboxes()) {
+          <td>
+            <p-skeleton width="2rem" />
+          </td>
+        }
+        @for (col of columns; track col) {
+          <td>
+            <p-skeleton />
+          </td>
         }
       </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
-      <tr>
-        <td [attr.colspan]="columns().length" class="text-center">No records found.</td>
-      </tr>
+      @if (!isLoading()) {
+        <tr>
+          <td [attr.colspan]="columns().length" class="text-center">No records found.</td>
+        </tr>
+      }
     </ng-template>
   </p-table>
 </div>
-

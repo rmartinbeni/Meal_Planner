@@ -1,34 +1,20 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { TableComponent } from '@app/shared/table/table.component';
+import { WeeklyMeal } from '@app/weekly/domain/weekly-meal.model';
 import { WeeklyService } from '@app/weekly/service/weekly.service';
-
-interface Recipe {
-  id: number;
-  name: string;
-}
-
-interface WeeklyMeal {
-  meal: string;
-  Monday: string;
-  Tuesday: string;
-  Wednesday: string;
-  Thursday: string;
-  Friday: string;
-  Saturday: string;
-  Sunday: string;
-}
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'meal-planner-weekly',
-  imports: [TableComponent],
+  imports: [TableComponent, ButtonModule],
   templateUrl: './weekly.component.html',
   styleUrls: ['./weekly.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WeeklyComponent implements OnInit {
+export class WeeklyComponent {
   private readonly weeklyService = inject(WeeklyService);
 
-  readonly recipes = signal<Recipe[]>([]);
+  readonly isLoading = signal(false);
 
   readonly columns: (keyof WeeklyMeal)[] = [
     'meal',
@@ -40,7 +26,8 @@ export class WeeklyComponent implements OnInit {
     'Saturday',
     'Sunday',
   ];
-  readonly data: WeeklyMeal[] = [
+
+  readonly data = signal<WeeklyMeal[]>([
     {
       meal: 'Breakfast',
       Monday: '',
@@ -71,18 +58,15 @@ export class WeeklyComponent implements OnInit {
       Saturday: '',
       Sunday: '',
     },
-  ];
+  ]);
 
-  ngOnInit() {
-    void this.loadRecipes();
-  }
-
-  private async loadRecipes() {
-    const { data, error } = await this.weeklyService.getAll();
-    if (error) {
-      console.error('Error loading recipes', error);
-      return;
+  async randomizeWeek() {
+    this.isLoading.set(true);
+    try {
+      const randomWeek = await this.weeklyService.generateRandomWeek();
+      this.data.set(randomWeek);
+    } finally {
+      this.isLoading.set(false);
     }
-    this.recipes.set(data as Recipe[]);
   }
 }

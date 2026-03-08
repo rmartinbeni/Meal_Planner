@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
+import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'meal-planner-table',
-  imports: [TableModule, InputTextModule, CardModule, ButtonModule],
+  imports: [TableModule, InputTextModule, CardModule, ButtonModule, SkeletonModule],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,5 +23,6 @@ export class TableComponent<T extends object> {
   showFilters = input(true);
   showPaginator = input(true);
   showSorters = input(true);
+  isLoading = input(false);
   addItem = output();
 }

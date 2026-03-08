@@ -5,11 +5,16 @@ import { RecipesService } from './recipes.service';
 
 describe('RecipesService', () => {
   let service: RecipesService;
-  let mockRepo: { getAll: ReturnType<typeof vi.fn>; create: ReturnType<typeof vi.fn> };
+  let mockRepo: {
+    getAll: ReturnType<typeof vi.fn>;
+    create: ReturnType<typeof vi.fn>;
+    getRandom: ReturnType<typeof vi.fn>;
+  };
 
   beforeEach(() => {
     mockRepo = {
       getAll: vi.fn(),
+      getRandom: vi.fn(),
       create: vi.fn(),
     };
 
@@ -32,6 +37,18 @@ describe('RecipesService', () => {
       const result = await service.getAll();
 
       expect(mockRepo.getAll).toHaveBeenCalled();
+      expect(result).toEqual(mockResult);
+    });
+  });
+
+  describe('getRandom', () => {
+    it('should call repository getRandom with limit', async () => {
+      const mockResult = { data: [], error: undefined };
+      mockRepo.getRandom = vi.fn().mockResolvedValue(mockResult);
+
+      const result = await service.getRandom(10);
+
+      expect(mockRepo.getRandom).toHaveBeenCalledWith(10);
       expect(result).toEqual(mockResult);
     });
   });

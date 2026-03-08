@@ -1,6 +1,17 @@
+<div class="px-6 pb-6 w-full flex justify-end">
+  <p-button
+    label="Randomize Week"
+    icon="pi pi-refresh"
+    (onClick)="randomizeWeek()"
+    severity="primary"
+    [loading]="isLoading()"
+  />
+</div>
+
 <meal-planner-table
-  [data]="data"
+  [data]="data()"
   [columns]="columns"
+  [isLoading]="isLoading()"
   [showPaginator]="false"
   [showCaption]="false"
   [showCheckboxes]="false"

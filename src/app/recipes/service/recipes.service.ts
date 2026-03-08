@@ -9,6 +9,10 @@ export class RecipesService {
     return this.repo.getAll();
   }
 
+  async getRandom(limit: number) {
+    return this.repo.getRandom(limit);
+  }
+
   async create(payload: { name: string; ingredient_ids: number[] }) {
     return this.repo.create(payload);
   }
